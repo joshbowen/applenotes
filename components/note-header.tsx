@@ -59,12 +59,19 @@ export default function NoteHeader({
       <div className="px-2 bg-[#1c1c1c] mb-4 relative">
         <div className="flex justify-center items-center">
           <p className="text-gray-400 text-xs">{formattedDate}</p>
-          {!note.public && (
-            <Badge className="text-xs justify-center items-center ml-2">
-              <Lock className="w-3 h-3 mr-1" />
-              Private
-            </Badge>
-          )}
+          <Badge
+            onClick={() => canEdit && saveNote({ public: !note.public })}
+            variant={note.public ? "public" : "private"}
+            className="text-xs justify-center items-center ml-2 cursor-pointer"
+          >
+            {note.public ? (
+              <>Public</>
+            ) : (
+              <>
+                <Lock className="w-3 h-3 mr-1" /> Private
+              </>
+            )}
+          </Badge>
         </div>
         <div className="flex items-center relative">
           {canEdit && !note.public && !isMobile ? (
