@@ -50,6 +50,13 @@ export default function Note({ note: initialNote }: { note: any }) {
                 content_arg: updatedNote.content,
               });
             }
+            if ('public' in updates) {
+              await supabase.rpc("update_note_public", {
+                uuid_arg: note.id,
+                session_arg: sessionId,
+                public_arg: updatedNote.public,
+              });
+            }
           }
 
           await fetch("/revalidate", {

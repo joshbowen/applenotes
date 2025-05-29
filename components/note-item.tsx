@@ -11,6 +11,7 @@ import {
 } from "./ui/context-menu";
 import { Note } from '@/lib/types';
 import { Dispatch, SetStateAction } from "react";
+import { Badge } from "./ui/badge";
 
 function previewContent(content: string): string {
   return content
@@ -109,8 +110,14 @@ export function NoteItem({
       onClick={handleNoteClick}
     >
       <Link href={`/${item.slug || ""}`} prefetch={true} className="block py-2">
-        <h2 className="text-sm font-bold pl-4 pr-4 break-words">
+        <h2 className="text-sm font-bold pl-4 pr-4 break-words flex items-center">
           {item.emoji} {item.title}
+          <Badge
+            variant={item.public ? "public" : "private"}
+            className="ml-2 px-2 py-0.5"
+          >
+            {item.public ? "Public" : "Private"}
+          </Badge>
         </h2>
         <p
           className={`text-xs pl-4 pr-4 overflow-hidden text-ellipsis whitespace-nowrap ${
